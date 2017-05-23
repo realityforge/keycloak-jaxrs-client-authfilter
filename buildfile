@@ -11,7 +11,7 @@ define 'keycloak-jaxrs-client-authfilter' do
   project.version = ENV['PRODUCT_VERSION'] if ENV['PRODUCT_VERSION']
 
   pom.add_apache_v2_license
-  pom.add_github_project('realityforge/keycloak-jaxrs-client-filter')
+  pom.add_github_project('realityforge/keycloak-jaxrs-client-authfilter')
   pom.add_developer('realityforge', 'Peter Donald', 'peter@realityforge.org', ['Developer'])
   pom.provided_dependencies.concat [:javaee_api, :jsr305_annotations, :glassfish_embedded]
 
