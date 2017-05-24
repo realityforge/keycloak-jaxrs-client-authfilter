@@ -4,7 +4,7 @@ repositories:
 
 artifacts:
   javaee_api: javax:javaee-api:jar:7.0
-  jsr305_annotations: com.google.code.findbugs:jsr305:jar:3.0.0
+  jsr305_annotations: com.google.code.findbugs:jsr305:jar:3.0.1
   keycloak_core: org.keycloak:keycloak-core:jar:2.0.0.Final
   keycloak_common: org.keycloak:keycloak-common:jar:2.0.0.Final
   keycloak_adapter_core: org.keycloak:keycloak-adapter-core:jar:2.0.0.Final
