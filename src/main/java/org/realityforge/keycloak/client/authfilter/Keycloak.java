@@ -123,6 +123,16 @@ public final class Keycloak
       final int requestTime = Time.currentTime();
       _currentToken = callTokenService( parameters );
       _expirationTime = requestTime + _currentToken.getExpiresIn();
+      /*
+       * Manually expire token if passed back and is invalid.
+       * In theory this should never happen but some versions of keycloak will return invalid token. Possibly
+       * due to temporary skews in clocks or bugs in either keycloak or this code. This code avoids the scenario
+       * where an invalid refresh token is used to attempt to reconnect and it gets into a terminal failure loop.
+       */
+      if ( tokenExpired() || null == _currentToken.getToken() )
+      {
+        expireToken();
+      }
       return _currentToken;
     }
     catch ( final BadRequestException ignored )
