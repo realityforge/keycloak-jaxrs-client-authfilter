@@ -25,6 +25,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.common.util.Time;
@@ -122,16 +123,23 @@ public final class Keycloak
     {
       final int requestTime = Time.currentTime();
       _currentToken = callTokenService( parameters );
-      _expirationTime = requestTime + _currentToken.getExpiresIn();
-      /*
-       * Manually expire token if passed back and is invalid.
-       * In theory this should never happen but some versions of keycloak will return invalid token. Possibly
-       * due to temporary skews in clocks or bugs in either keycloak or this code. This code avoids the scenario
-       * where an invalid refresh token is used to attempt to reconnect and it gets into a terminal failure loop.
-       */
-      if ( tokenExpired() || null == _currentToken.getToken() )
+      if ( null == _currentToken )
       {
-        expireToken();
+        _expirationTime = 0;
+      }
+      else
+      {
+        _expirationTime = requestTime + _currentToken.getExpiresIn();
+        /*
+         * Manually expire token if passed back and is invalid.
+         * In theory this should never happen but some versions of keycloak will return invalid token. Possibly
+         * due to temporary skews in clocks or bugs in either keycloak or this code. This code avoids the scenario
+         * where an invalid refresh token is used to attempt to reconnect and it gets into a terminal failure loop.
+         */
+        if ( tokenExpired() || null == _currentToken.getToken() )
+        {
+          expireToken();
+        }
       }
       return _currentToken;
     }
@@ -154,7 +162,7 @@ public final class Keycloak
   /**
    * Invoke the token web service with specified parameters.
    */
-  @Nonnull
+  @Nullable
   private AccessTokenResponse callTokenService( @Nonnull final MultivaluedMap<String, String> parameters )
   {
     final ClientBuilder builder =
@@ -170,11 +178,18 @@ public final class Keycloak
       final WebTarget target = client.
         target( _config.getServerUrl() ).
         path( "/realms/" ).path( _config.getRealm() ).path( "/protocol/openid-connect/token" );
-      return target.
+      final Response response = target.
         request( MediaType.APPLICATION_FORM_URLENCODED ).
         accept( MediaType.APPLICATION_JSON ).
-        post( Entity.form( parameters ) ).
-        readEntity( AccessTokenResponse.class );
+        post( Entity.form( parameters ) );
+      if ( Response.Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily() )
+      {
+        return response.readEntity( AccessTokenResponse.class );
+      }
+      else
+      {
+        return null;
+      }
     }
     finally
     {
@@ -225,6 +240,7 @@ public final class Keycloak
   /**
    * Return true if the token has expired.
    */
+
   private synchronized boolean tokenExpired()
   {
     return ( Time.currentTime() + _minTokenValidity ) >= _expirationTime;
