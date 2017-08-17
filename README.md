@@ -20,10 +20,10 @@ into the build system. i.e.
 ```
 
 Then you set up an instance of `Keycloak` that will be used to authenticate with keycloak. Make sure that
-the client configured is one that allows log in via password (and not a "bearer-only" client). 
+the client configured is one that allows log in via password (and not a "bearer-only" client).
 
 ```java
-final KeycloakConfig config = 
+final KeycloakConfig config =
   KeycloakConfig.createPasswordConfig( "https://id.example.com", "MyRealm", "MyClient", "MyUser", "MyPass" );
 final Keycloak keycloak = new Keycloak( config );
 ```
@@ -31,7 +31,7 @@ final Keycloak keycloak = new Keycloak( config );
 Then ensure that a `BearerAuthFilter` is attached to jaxrs client setup when accessing secured services. i.e.
 
 ```java
-final Client client = 
+final Client client =
   ClientBuilder.newClient().register( new BearerAuthFilter( keycloak ) );
 ...
 ```
@@ -41,11 +41,10 @@ final Client client =
 The library is currently coupled to the glassfish Jersey jaxrs implementation as it registers the feature
 `org.glassfish.jersey.jackson.JacksonFeature` but it would be trivial to abstract this so that this could
 be used in any app server and with any jaxrs implementation. It would be nice to to do if there was any
-need. 
+need.
 
 ## Credit
 
 This code was inspired by a [post](http://lists.jboss.org/pipermail/keycloak-user/2017-May/010740.html) by
 Thomas Darimont and draws heavily on the [admin-client](https://github.com/keycloak/keycloak/tree/master/integration/admin-client/src/main/java/org/keycloak/admin/client)
-code from the main keycloak project.  
-
+code from the main keycloak project.
