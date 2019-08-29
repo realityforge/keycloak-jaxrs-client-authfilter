@@ -1,6 +1,7 @@
 ## Unreleased
 
 * Decouple from `org.keycloak` libraries and use a simplified mechanism for representing tokens.
+* Allow the specification of `connectTimeout` and `readTimeout` used when attempting to connect to keycloak server.
 
 ## 0.2:
 
