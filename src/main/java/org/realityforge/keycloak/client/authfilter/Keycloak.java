@@ -26,11 +26,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import org.glassfish.jersey.jackson.JacksonFeature;
-import org.keycloak.OAuth2Constants;
 import org.keycloak.common.util.Time;
 import org.keycloak.representations.AccessTokenResponse;
 
+@SuppressWarnings( "WeakerAccess" )
 public final class Keycloak
 {
   private static final long DEFAULT_MIN_VALIDITY = 30;
@@ -166,7 +165,12 @@ public final class Keycloak
   private AccessTokenResponse callTokenService( @Nonnull final MultivaluedMap<String, String> parameters )
   {
     final ClientBuilder builder =
-      ClientBuilder.newBuilder().register( JacksonFeature.class );
+      ClientBuilder.newBuilder()
+        //.property( "jersey.config.jsonFeature", JacksonFeature.class.getName() )
+        .property( "jersey.config.jsonFeature", "JacksonFeature" )
+      /*.register( JacksonFeature.class )*/;
+    //ClientBuilder.newBuilder()
+    //  .register( JacksonJaxbJsonProvider.class, MessageBodyReader.class, MessageBodyWriter.class );
     final String clientSecret = _config.getClientSecret();
     if ( null != clientSecret )
     {
@@ -204,7 +208,7 @@ public final class Keycloak
   private MultivaluedMap<String, String> grantTokenParameters()
   {
     final MultivaluedHashMap<String, String> results = initParameters();
-    results.put( OAuth2Constants.GRANT_TYPE, Collections.singletonList( _config.getGrantType() ) );
+    results.put( "grant_type", Collections.singletonList( _config.getGrantType() ) );
     results.put( "username", Collections.singletonList( _config.getUsername() ) );
     results.put( "password", Collections.singletonList( _config.getPassword() ) );
     return results;
@@ -218,8 +222,8 @@ public final class Keycloak
   {
     assert null != _currentToken;
     final MultivaluedHashMap<String, String> results = initParameters();
-    results.put( OAuth2Constants.GRANT_TYPE, Collections.singletonList( OAuth2Constants.REFRESH_TOKEN ) );
-    results.put( OAuth2Constants.REFRESH_TOKEN, Collections.singletonList( _currentToken.getRefreshToken() ) );
+    results.put( "grant_type", Collections.singletonList( "refresh_token" ) );
+    results.put( "refresh_token", Collections.singletonList( _currentToken.getRefreshToken() ) );
     return results;
   }
 
@@ -232,7 +236,7 @@ public final class Keycloak
     final MultivaluedHashMap<String, String> results = new MultivaluedHashMap<>();
     if ( _config.isPublicClient() )
     {
-      results.put( OAuth2Constants.CLIENT_ID, Collections.singletonList( _config.getClientID() ) );
+      results.put( "client_id", Collections.singletonList( _config.getClientID() ) );
     }
     return results;
   }
@@ -240,7 +244,6 @@ public final class Keycloak
   /**
    * Return true if the token has expired.
    */
-
   private synchronized boolean tokenExpired()
   {
     return ( Time.currentTime() + _minTokenValidity ) >= _expirationTime;
