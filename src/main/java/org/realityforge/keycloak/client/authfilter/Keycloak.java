@@ -29,7 +29,7 @@ import javax.ws.rs.core.Response;
 import org.keycloak.common.util.Time;
 import org.keycloak.representations.AccessTokenResponse;
 
-@SuppressWarnings( "WeakerAccess" )
+@SuppressWarnings( { "WeakerAccess", "unused" } )
 public final class Keycloak
 {
   private static final long DEFAULT_MIN_VALIDITY = 30;
