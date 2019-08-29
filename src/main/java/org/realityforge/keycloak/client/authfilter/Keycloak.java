@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.json.JsonObject;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -26,7 +27,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import org.keycloak.representations.AccessTokenResponse;
 
 @SuppressWarnings( { "WeakerAccess", "unused" } )
 public final class Keycloak
@@ -58,7 +58,7 @@ public final class Keycloak
   public String getAccessTokenString()
   {
     final AccessTokenResponse token = getAccessToken();
-    return null == token ? null : token.getToken();
+    return null == token ? null : token.getAccessToken();
   }
 
   @Nullable
@@ -80,10 +80,12 @@ public final class Keycloak
 
   /**
    * Invalidate token if it still patches current token.
+   *
+   * @param token the token to invalidate.
    */
   public void invalidate( @Nonnull final String token )
   {
-    if ( null != _currentToken && _currentToken.getToken().equals( token ) )
+    if ( null != _currentToken && _currentToken.getAccessToken().equals( token ) )
     {
       expireToken();
     }
@@ -113,6 +115,7 @@ public final class Keycloak
    * Retrieve and cache token, calculating expiration time.
    * If request fails then ensure current token is expired and return null.
    */
+  @SuppressWarnings( "ConstantConditions" )
   @Nullable
   private synchronized AccessTokenResponse getAccessToken( @Nonnull final MultivaluedMap<String, String> parameters )
   {
@@ -133,7 +136,7 @@ public final class Keycloak
          * due to temporary skews in clocks or bugs in either keycloak or this code. This code avoids the scenario
          * where an invalid refresh token is used to attempt to reconnect and it gets into a terminal failure loop.
          */
-        if ( tokenExpired() || null == _currentToken.getToken() )
+        if ( tokenExpired() || null == _currentToken.getAccessToken() )
         {
           expireToken();
         }
@@ -162,13 +165,7 @@ public final class Keycloak
   @Nullable
   private AccessTokenResponse callTokenService( @Nonnull final MultivaluedMap<String, String> parameters )
   {
-    final ClientBuilder builder =
-      ClientBuilder.newBuilder()
-        //.property( "jersey.config.jsonFeature", JacksonFeature.class.getName() )
-        .property( "jersey.config.jsonFeature", "JacksonFeature" )
-      /*.register( JacksonFeature.class )*/;
-    //ClientBuilder.newBuilder()
-    //  .register( JacksonJaxbJsonProvider.class, MessageBodyReader.class, MessageBodyWriter.class );
+    final ClientBuilder builder = ClientBuilder.newBuilder();
     final String clientSecret = _config.getClientSecret();
     if ( null != clientSecret )
     {
@@ -186,7 +183,7 @@ public final class Keycloak
         post( Entity.form( parameters ) );
       if ( Response.Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily() )
       {
-        return response.readEntity( AccessTokenResponse.class );
+        return new AccessTokenResponse( response.readEntity( JsonObject.class ) );
       }
       else
       {
