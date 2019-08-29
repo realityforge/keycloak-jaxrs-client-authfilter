@@ -26,7 +26,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import org.keycloak.common.util.Time;
 import org.keycloak.representations.AccessTokenResponse;
 
 @SuppressWarnings( { "WeakerAccess", "unused" } )
@@ -120,7 +119,7 @@ public final class Keycloak
   {
     try
     {
-      final int requestTime = Time.currentTime();
+      final int requestTime = currentEpochTime();
       _currentToken = callTokenService( parameters );
       if ( null == _currentToken )
       {
@@ -246,6 +245,11 @@ public final class Keycloak
    */
   private synchronized boolean tokenExpired()
   {
-    return ( Time.currentTime() + _minTokenValidity ) >= _expirationTime;
+    return ( currentEpochTime() + _minTokenValidity ) >= _expirationTime;
+  }
+
+  public static int currentEpochTime()
+  {
+    return (int) ( System.currentTimeMillis() / 1000 );
   }
 }
