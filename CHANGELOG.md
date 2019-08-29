@@ -1,3 +1,7 @@
+## Unreleased
+
+* Decouple from `org.keycloak` libraries and use a simplified mechanism for representing tokens.
+
 ## 0.2:
 
 * If an invalid token is returned from token service then manually expire the token.
