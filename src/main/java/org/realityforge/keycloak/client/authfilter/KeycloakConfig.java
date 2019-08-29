@@ -16,13 +16,16 @@ package org.realityforge.keycloak.client.authfilter;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.keycloak.OAuth2Constants;
 
 /**
  * This class is the immutable configuration required to access keycloak server.
  */
 public final class KeycloakConfig
 {
+  @Nonnull
+  private static final String PASSWORD = "password";
+  @Nonnull
+  private static final String CLIENT_CREDENTIALS = "client_credentials";
   @Nonnull
   private final String _serverUrl;
   @Nonnull
@@ -45,7 +48,7 @@ public final class KeycloakConfig
                                                      @Nonnull final String username,
                                                      @Nonnull final String password )
   {
-    return new KeycloakConfig( serverUrl, realm, OAuth2Constants.PASSWORD, clientID, username, password, null );
+    return new KeycloakConfig( serverUrl, realm, PASSWORD, clientID, username, password, null );
   }
 
   private KeycloakConfig( @Nonnull final String serverUrl,
@@ -60,15 +63,14 @@ public final class KeycloakConfig
     _realm = Objects.requireNonNull( realm );
     _grantType = Objects.requireNonNull( grantType );
     _clientID = Objects.requireNonNull( clientID );
-    if ( !OAuth2Constants.PASSWORD.equals( grantType ) && !OAuth2Constants.CLIENT_CREDENTIALS.equals( grantType ) )
+    if ( !PASSWORD.equals( grantType ) && !CLIENT_CREDENTIALS.equals( grantType ) )
     {
       final String message =
-        "Unsupported grantType: " + grantType +
-        " Valid grant types: " + OAuth2Constants.PASSWORD + " and " + OAuth2Constants.CLIENT_CREDENTIALS;
+        "Unsupported grantType: " + grantType + " Valid grant types: " + PASSWORD + " and " + CLIENT_CREDENTIALS;
       throw new IllegalArgumentException( message );
     }
 
-    if ( OAuth2Constants.PASSWORD.equals( grantType ) )
+    if ( PASSWORD.equals( grantType ) )
     {
       assert null == clientSecret;
       _username = Objects.requireNonNull( username );
