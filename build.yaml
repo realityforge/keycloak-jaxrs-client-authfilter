@@ -1,8 +1,11 @@
 repositories:
   remote:
    - https://repo.maven.apache.org/maven2
+   - https://stocksoftware.jfrog.io/stocksoftware/public
 
 artifacts:
+  idea_codestyle: au.com.stocksoftware.idea.codestyle:idea-codestyle:xml:1.14
+
   javaee_api: javax:javaee-api:jar:7.0
   jsr305_annotations: org.realityforge.javax.annotation:javax.annotation:jar:1.0.0
   keycloak_core: org.keycloak:keycloak-core:jar:2.0.0.Final
