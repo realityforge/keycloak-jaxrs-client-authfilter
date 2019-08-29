@@ -20,6 +20,7 @@ import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 
+@SuppressWarnings( "WeakerAccess" )
 public final class BasicAuthFilter
   implements ClientRequestFilter
 {

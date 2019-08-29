@@ -27,6 +27,7 @@ import javax.ws.rs.core.Response;
  * Jaxrs client filter that sets the Bearer header when request made
  * and invalidates the token if http request is unauthorized.
  */
+@SuppressWarnings( "unused" )
 public final class BearerAuthFilter
   implements ClientRequestFilter, ClientResponseFilter
 {
