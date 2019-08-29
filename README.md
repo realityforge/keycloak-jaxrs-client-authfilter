@@ -15,7 +15,7 @@ into the build system. i.e.
 <dependency>
     <groupId>org.realityforge.keycloak.client.authfilter</groupId>
     <artifactId>keycloak-jaxrs-client-authfilter</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 </dependency>
 ```
 
