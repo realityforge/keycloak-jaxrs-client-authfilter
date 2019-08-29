@@ -31,7 +31,6 @@ public final class BearerAuthFilter
   implements ClientRequestFilter, ClientResponseFilter
 {
   private static final String AUTH_HEADER_PREFIX = "Bearer ";
-
   @Nonnull
   private final Keycloak _keycloak;
 
