@@ -77,7 +77,6 @@ public final class KeycloakConfig
     }
     else
     {
-      assert OAuth2Constants.CLIENT_CREDENTIALS.equals( grantType );
       assert null == username;
       assert null == password;
       _username = null;
