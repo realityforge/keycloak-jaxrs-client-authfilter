@@ -1,4 +1,5 @@
-### Unreleased
+### [v1.00](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/tree/v1.00) (2019-08-30)
+[Full Changelog](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/compare/v0.2...v1.00)
 
 * Decouple from `org.keycloak` libraries and use a simplified mechanism for representing tokens.
 * Allow the specification of `connectTimeout` and `readTimeout` used when attempting to connect to keycloak server.
