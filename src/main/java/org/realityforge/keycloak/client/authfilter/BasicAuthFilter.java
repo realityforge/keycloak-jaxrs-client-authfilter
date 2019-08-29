@@ -13,7 +13,6 @@
  */
 package org.realityforge.keycloak.client.authfilter;
 
-import java.io.IOException;
 import java.util.Base64;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -35,7 +34,6 @@ public final class BasicAuthFilter
 
   @Override
   public void filter( final ClientRequestContext requestContext )
-    throws IOException
   {
     final String pair = _username + ":" + _password;
     final String header = "Basic " + Base64.getEncoder().encodeToString( pair.getBytes() );
