@@ -13,7 +13,6 @@
  */
 package org.realityforge.keycloak.client.authfilter;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -43,7 +42,6 @@ public final class BearerAuthFilter
 
   @Override
   public void filter( final ClientRequestContext requestContext )
-    throws IOException
   {
     final String accessToken = _keycloak.getAccessTokenString();
     if ( null != accessToken )
@@ -54,7 +52,6 @@ public final class BearerAuthFilter
 
   @Override
   public void filter( final ClientRequestContext requestContext, final ClientResponseContext responseContext )
-    throws IOException
   {
     if ( Response.Status.UNAUTHORIZED.getStatusCode() == responseContext.getStatus() )
     {
