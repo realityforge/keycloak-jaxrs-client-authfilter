@@ -32,7 +32,6 @@ import org.keycloak.representations.AccessTokenResponse;
 public final class Keycloak
 {
   private static final long DEFAULT_MIN_VALIDITY = 30;
-
   @Nonnull
   private final KeycloakConfig _config;
   @Nullable
