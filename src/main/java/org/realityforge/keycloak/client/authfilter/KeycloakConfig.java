@@ -20,6 +20,7 @@ import javax.annotation.Nullable;
 /**
  * This class is the immutable configuration required to access keycloak server.
  */
+@SuppressWarnings( { "WeakerAccess", "unused" } )
 public final class KeycloakConfig
 {
   @Nonnull
