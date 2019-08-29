@@ -36,13 +36,6 @@ final Client client =
 ...
 ```
 
-## TODO
-
-The library is currently coupled to the glassfish Jersey jaxrs implementation as it registers the feature
-`org.glassfish.jersey.jackson.JacksonFeature` but it would be trivial to abstract this so that this could
-be used in any app server and with any jaxrs implementation. It would be nice to to do if there was any
-need.
-
 ## Credit
 
 This code was inspired by a [post](http://lists.jboss.org/pipermail/keycloak-user/2017-May/010740.html) by
