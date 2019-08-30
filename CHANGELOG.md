@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* The `connectTimeout` and `readTimeout` properties were specified as values of type `long` and while this worked for older versions of jersey, it no longer works with the version of jersey shipped with Payara 5. The values have been changed to be of type `int` that works across jersey versions.
+
 ### [v1.00](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/tree/v1.00) (2019-08-30)
 [Full Changelog](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/compare/v0.2...v1.00)
 

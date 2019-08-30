@@ -14,7 +14,6 @@
 package org.realityforge.keycloak.client.authfilter;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -42,8 +41,8 @@ public final class KeycloakConfig
   private final String _clientID;
   @Nullable
   private final String _clientSecret;
-  private final long _connectTimeoutInMillis;
-  private final long _readTimeoutInMillis;
+  private final int _connectTimeoutInMillis;
+  private final int _readTimeoutInMillis;
 
   @Nonnull
   public static KeycloakConfig createPasswordConfig( @Nonnull final String serverUrl,
@@ -52,13 +51,7 @@ public final class KeycloakConfig
                                                      @Nonnull final String username,
                                                      @Nonnull final String password )
   {
-    return createPasswordConfig( serverUrl,
-                                 realm,
-                                 clientID,
-                                 username,
-                                 password,
-                                 TimeUnit.SECONDS.toMillis( 5 ),
-                                 TimeUnit.SECONDS.toMillis( 5 ) );
+    return createPasswordConfig( serverUrl, realm, clientID, username, password, 5000, 5000 );
   }
 
   @Nonnull
@@ -67,8 +60,8 @@ public final class KeycloakConfig
                                                      @Nonnull final String clientID,
                                                      @Nonnull final String username,
                                                      @Nonnull final String password,
-                                                     final long connectTimeoutInMillis,
-                                                     final long readTimeoutInMillis )
+                                                     final int connectTimeoutInMillis,
+                                                     final int readTimeoutInMillis )
   {
     return new KeycloakConfig( serverUrl,
                                realm,
@@ -88,11 +81,11 @@ public final class KeycloakConfig
                           @Nullable final String username,
                           @Nullable final String password,
                           @Nullable final String clientSecret,
-                          final long connectTimeoutInMillis,
-                          final long readTimeoutInMillis )
+                          final int connectTimeoutInMillis,
+                          final int readTimeoutInMillis )
   {
-    assert connectTimeoutInMillis >= 0L;
-    assert readTimeoutInMillis >= 0L;
+    assert connectTimeoutInMillis >= 0;
+    assert readTimeoutInMillis >= 0;
     _serverUrl = Objects.requireNonNull( serverUrl );
     _realm = Objects.requireNonNull( realm );
     _grantType = Objects.requireNonNull( grantType );
@@ -170,12 +163,12 @@ public final class KeycloakConfig
     return _clientSecret == null;
   }
 
-  public long getConnectTimeoutInMillis()
+  public int getConnectTimeoutInMillis()
   {
     return _connectTimeoutInMillis;
   }
 
-  public long getReadTimeoutInMillis()
+  public int getReadTimeoutInMillis()
   {
     return _readTimeoutInMillis;
   }

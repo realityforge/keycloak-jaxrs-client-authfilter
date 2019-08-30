@@ -166,13 +166,13 @@ public final class Keycloak
   private AccessTokenResponse callTokenService( @Nonnull final MultivaluedMap<String, String> parameters )
   {
     final ClientBuilder builder = ClientBuilder.newBuilder();
-    final long connectTimeoutInMillis = _config.getConnectTimeoutInMillis();
-    if ( connectTimeoutInMillis > 0L )
+    final int connectTimeoutInMillis = _config.getConnectTimeoutInMillis();
+    if ( connectTimeoutInMillis > 0 )
     {
       builder.property( "jersey.config.client.connectTimeout", connectTimeoutInMillis );
     }
-    final long readTimeoutInMillis = _config.getReadTimeoutInMillis();
-    if ( readTimeoutInMillis > 0L )
+    final int readTimeoutInMillis = _config.getReadTimeoutInMillis();
+    if ( readTimeoutInMillis > 0 )
     {
       builder.property( "jersey.config.client.readTimeout", readTimeoutInMillis );
     }
