@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
+
 ### [v1.02](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/tree/v1.02) (2019-09-09)
 [Full Changelog](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/compare/v1.01...v1.02)
 
