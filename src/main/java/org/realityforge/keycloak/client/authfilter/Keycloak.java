@@ -35,7 +35,7 @@ public final class Keycloak
   @Nonnull
   private final KeycloakConfig _config;
   @Nullable
-  private AccessTokenResponse _currentToken;
+  private TokenResponse _currentToken;
   private long _expirationTime;
   private long _minTokenValidity = DEFAULT_MIN_VALIDITY;
 
@@ -55,14 +55,14 @@ public final class Keycloak
   }
 
   @Nullable
-  public String getAccessTokenString()
+  public String getAccessToken()
   {
-    final AccessTokenResponse token = getAccessToken();
+    final TokenResponse token = getToken();
     return null == token ? null : token.getAccessToken();
   }
 
   @Nullable
-  public synchronized AccessTokenResponse getAccessToken()
+  public synchronized TokenResponse getToken()
   {
     if ( null == _currentToken )
     {
@@ -95,10 +95,10 @@ public final class Keycloak
    * Call token service to refresh token, and then attempt to grant token if the refresh fails.
    */
   @Nullable
-  private AccessTokenResponse refreshToken()
+  private TokenResponse refreshToken()
   {
     assert null != _currentToken;
-    getAccessToken( refreshTokenParameters() );
+    getToken( refreshTokenParameters() );
     return null != _currentToken ? _currentToken : grantToken();
   }
 
@@ -106,9 +106,9 @@ public final class Keycloak
    * Call token service to grant token.
    */
   @Nullable
-  private AccessTokenResponse grantToken()
+  private TokenResponse grantToken()
   {
-    return getAccessToken( grantTokenParameters() );
+    return getToken( grantTokenParameters() );
   }
 
   /**
@@ -117,7 +117,7 @@ public final class Keycloak
    */
   @SuppressWarnings( "ConstantConditions" )
   @Nullable
-  private synchronized AccessTokenResponse getAccessToken( @Nonnull final MultivaluedMap<String, String> parameters )
+  private synchronized TokenResponse getToken( @Nonnull final MultivaluedMap<String, String> parameters )
   {
     try
     {
@@ -163,7 +163,7 @@ public final class Keycloak
    * Invoke the token web service with specified parameters.
    */
   @Nullable
-  private AccessTokenResponse callTokenService( @Nonnull final MultivaluedMap<String, String> parameters )
+  private TokenResponse callTokenService( @Nonnull final MultivaluedMap<String, String> parameters )
   {
     final ClientBuilder builder = ClientBuilder.newBuilder();
     final int connectTimeoutInMillis = _config.getConnectTimeoutInMillis();
@@ -193,7 +193,7 @@ public final class Keycloak
         post( Entity.form( parameters ) );
       if ( Response.Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily() )
       {
-        return new AccessTokenResponse( response.readEntity( JsonObject.class ) );
+        return new TokenResponse( response.readEntity( JsonObject.class ) );
       }
       else
       {

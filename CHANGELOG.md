@@ -3,6 +3,9 @@
 ### Unreleased
 
 * Upgrade the version of the `javax:javaee-api` artifact to `8.0`.
+* Rename `AccessTokenResponse` to `TokenResponse`.
+* Rename `Keycloak.getAccessToken()` to `Keycloak.getToken()`.
+* Rename `Keycloak.getAccessTokenString()` to `Keycloak.getAccessToken()`.
 
 ### [v1.01](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/tree/v1.01) (2019-08-30)
 [Full Changelog](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/compare/v1.00...v1.01)

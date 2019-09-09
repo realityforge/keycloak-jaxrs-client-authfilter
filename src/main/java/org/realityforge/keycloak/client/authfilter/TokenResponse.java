@@ -6,12 +6,12 @@ import javax.annotation.Nullable;
 import javax.json.JsonObject;
 
 @SuppressWarnings( { "WeakerAccess", "unused" } )
-public final class AccessTokenResponse
+public final class TokenResponse
 {
   @Nonnull
   private final JsonObject _object;
 
-  public AccessTokenResponse( @Nonnull final JsonObject object )
+  public TokenResponse( @Nonnull final JsonObject object )
   {
     _object = Objects.requireNonNull( object );
   }

@@ -43,7 +43,7 @@ public final class BearerAuthFilter
   @Override
   public void filter( final ClientRequestContext requestContext )
   {
-    final String accessToken = _keycloak.getAccessTokenString();
+    final String accessToken = _keycloak.getAccessToken();
     if ( null != accessToken )
     {
       requestContext.getHeaders().add( HttpHeaders.AUTHORIZATION, AUTH_HEADER_PREFIX + accessToken );
