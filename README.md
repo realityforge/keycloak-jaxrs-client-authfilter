@@ -1,6 +1,6 @@
 # keycloak-jaxrs-client-authfilter
 
-[![Build Status](https://secure.travis-ci.org/realityforge/keycloak-jaxrs-client-authfilter.svg?branch=master)](http://travis-ci.org/realityforge/keycloak-jaxrs-client-authfilter)
+[![Build Status](https://api.travis-ci.com/realityforge/keycloak-jaxrs-client-authfilter.svg?branch=master)](http://travis-ci.org/realityforge/keycloak-jaxrs-client-authfilter)
 [<img src="https://img.shields.io/maven-central/v/org.realityforge.keycloak.client.authfilter/keycloak-jaxrs-client-authfilter.svg?label=latest%20release"/>](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.realityforge.keycloak.client.authfilter%22%20a%3A%22keycloak-jaxrs-client-authfilter%22)
 
 This library provides a basic Jaxrs client interceptor that makes accessing keycloak secured
