@@ -75,8 +75,7 @@ public final class BearerAuthFilter
           final String headerValue = (String) header;
           if ( headerValue.startsWith( AUTH_HEADER_PREFIX ) )
           {
-            final String token = headerValue.substring( AUTH_HEADER_PREFIX.length() );
-            _keycloak.invalidate( token );
+            _keycloak.invalidate( headerValue.substring( AUTH_HEADER_PREFIX.length() ) );
           }
         }
       }
