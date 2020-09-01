@@ -23,7 +23,9 @@ import javax.ws.rs.core.HttpHeaders;
 final class BasicAuthFilter
   implements ClientRequestFilter
 {
+  @Nonnull
   private final String _username;
+  @Nonnull
   private final String _password;
 
   BasicAuthFilter( @Nonnull final String username, @Nonnull final String password )
