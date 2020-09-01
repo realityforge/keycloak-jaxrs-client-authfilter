@@ -5,6 +5,7 @@
 * Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
 * Change `BearerAuthFilter` to abort the client request with an `IOException` if unable to acquire access token.
 * Reduce the access level of `BasicAuthFilter`  as it is not expected to be accessed outside package.
+* Add support for confidential `password` grant clients.
 
 ### [v1.02](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/tree/v1.02) (2019-09-09) · [Full Changelog](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/compare/v1.01...v1.02)
 

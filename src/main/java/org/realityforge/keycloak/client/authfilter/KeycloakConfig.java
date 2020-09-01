@@ -101,10 +101,9 @@ public final class KeycloakConfig
 
     if ( PASSWORD.equals( grantType ) )
     {
-      assert null == clientSecret;
       _username = Objects.requireNonNull( username );
       _password = Objects.requireNonNull( password );
-      _clientSecret = null;
+      _clientSecret = clientSecret;
     }
     else
     {
