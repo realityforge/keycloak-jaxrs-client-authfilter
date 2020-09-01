@@ -1,6 +1,6 @@
 # Change Log
 
-### Unreleased
+### [v1.03](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/tree/v1.03) (2020-09-01) · [Full Changelog](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/compare/v1.02...v1.03)
 
 * Upgrade the `org.realityforge.javax.annotation` artifact to version `1.0.1`.
 * Change `BearerAuthFilter` to abort the client request with an `IOException` if unable to acquire access token.
