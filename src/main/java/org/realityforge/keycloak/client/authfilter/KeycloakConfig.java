@@ -27,6 +27,8 @@ public final class KeycloakConfig
   private static final String PASSWORD = "password";
   @Nonnull
   private static final String CLIENT_CREDENTIALS = "client_credentials";
+  private static final int DEFAULT_CONNECT_TIMEOUT_IN_MILLIS = 5000;
+  private static final int DEFAULT_READ_TIMEOUT_IN_MILLIS = 5000;
   @Nonnull
   private final String _serverUrl;
   @Nonnull
@@ -51,7 +53,7 @@ public final class KeycloakConfig
                                                      @Nonnull final String username,
                                                      @Nonnull final String password )
   {
-    return createPasswordConfig( serverUrl, realm, clientID, username, password, 5000, 5000 );
+    return createPasswordConfig( serverUrl, realm, clientID, username, password, null );
   }
 
   @Nonnull
@@ -60,6 +62,25 @@ public final class KeycloakConfig
                                                      @Nonnull final String clientID,
                                                      @Nonnull final String username,
                                                      @Nonnull final String password,
+                                                     @Nullable final String clientSecret )
+  {
+    return createPasswordConfig( serverUrl,
+                                 realm,
+                                 clientID,
+                                 username,
+                                 password,
+                                 clientSecret,
+                                 DEFAULT_CONNECT_TIMEOUT_IN_MILLIS,
+                                 DEFAULT_READ_TIMEOUT_IN_MILLIS );
+  }
+
+  @Nonnull
+  public static KeycloakConfig createPasswordConfig( @Nonnull final String serverUrl,
+                                                     @Nonnull final String realm,
+                                                     @Nonnull final String clientID,
+                                                     @Nonnull final String username,
+                                                     @Nonnull final String password,
+                                                     @Nullable final String clientSecret,
                                                      final int connectTimeoutInMillis,
                                                      final int readTimeoutInMillis )
   {
@@ -69,7 +90,7 @@ public final class KeycloakConfig
                                clientID,
                                username,
                                password,
-                               null,
+                               clientSecret,
                                connectTimeoutInMillis,
                                readTimeoutInMillis );
   }
