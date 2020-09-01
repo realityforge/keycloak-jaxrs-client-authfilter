@@ -20,14 +20,13 @@ import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 
-@SuppressWarnings( "WeakerAccess" )
-public final class BasicAuthFilter
+final class BasicAuthFilter
   implements ClientRequestFilter
 {
   private final String _username;
   private final String _password;
 
-  public BasicAuthFilter( @Nonnull final String username, @Nonnull final String password )
+  BasicAuthFilter( @Nonnull final String username, @Nonnull final String password )
   {
     _username = Objects.requireNonNull( username );
     _password = Objects.requireNonNull( password );
