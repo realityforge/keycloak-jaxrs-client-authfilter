@@ -43,7 +43,7 @@ public final class BearerAuthFilter
   }
 
   @Override
-  public void filter( final ClientRequestContext requestContext )
+  public void filter( @Nonnull final ClientRequestContext requestContext )
     throws IOException
   {
     final String accessToken = _keycloak.getAccessToken();
@@ -58,7 +58,8 @@ public final class BearerAuthFilter
   }
 
   @Override
-  public void filter( final ClientRequestContext requestContext, final ClientResponseContext responseContext )
+  public void filter( @Nonnull final ClientRequestContext requestContext,
+                      @Nonnull final ClientResponseContext responseContext )
   {
     if ( Response.Status.UNAUTHORIZED.getStatusCode() == responseContext.getStatus() )
     {
