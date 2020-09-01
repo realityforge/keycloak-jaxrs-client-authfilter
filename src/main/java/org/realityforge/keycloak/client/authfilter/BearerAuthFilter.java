@@ -64,18 +64,17 @@ public final class BearerAuthFilter
     if ( Response.Status.UNAUTHORIZED.getStatusCode() == responseContext.getStatus() )
     {
       final List<Object> headers = requestContext.getHeaders().get( HttpHeaders.AUTHORIZATION );
-      if ( null == headers )
+      if ( null != headers )
       {
-        return;
-      }
-      for ( final Object header : headers )
-      {
-        if ( header instanceof String )
+        for ( final Object header : headers )
         {
-          final String headerValue = (String) header;
-          if ( headerValue.startsWith( AUTH_HEADER_PREFIX ) )
+          if ( header instanceof String )
           {
-            _keycloak.invalidate( headerValue.substring( AUTH_HEADER_PREFIX.length() ) );
+            final String headerValue = (String) header;
+            if ( headerValue.startsWith( AUTH_HEADER_PREFIX ) )
+            {
+              _keycloak.invalidate( headerValue.substring( AUTH_HEADER_PREFIX.length() ) );
+            }
           }
         }
       }
