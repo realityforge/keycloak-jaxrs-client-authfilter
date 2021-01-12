@@ -31,6 +31,10 @@ import javax.ws.rs.core.Response;
 @SuppressWarnings( { "WeakerAccess", "unused" } )
 public final class Keycloak
 {
+  /**
+   * The default minimum validity time in seconds.
+   * A reasonable time under which we expect a remote call to reach the server with some degree of safety.
+   */
   private static final long MIN_TOKEN_VALIDITY_SECONDS = 60;
   @Nonnull
   private final KeycloakConfig _config;
