@@ -31,13 +31,13 @@ import javax.ws.rs.core.Response;
 @SuppressWarnings( { "WeakerAccess", "unused" } )
 public final class Keycloak
 {
-  private static final long DEFAULT_MIN_VALIDITY = 30;
+  private static final long MIN_TOKEN_VALIDITY_SECONDS = 60;
   @Nonnull
   private final KeycloakConfig _config;
   @Nullable
   private TokenResponse _currentToken;
   private long _expirationTime;
-  private long _minTokenValidity = DEFAULT_MIN_VALIDITY;
+  private long _minTokenValidity = MIN_TOKEN_VALIDITY_SECONDS;
 
   public Keycloak( @Nonnull final KeycloakConfig config )
   {
