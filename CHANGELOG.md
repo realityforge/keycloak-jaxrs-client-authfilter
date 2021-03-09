@@ -2,6 +2,8 @@
 
 ### Unreleased
 
+* Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.17`.
+
 ### [v1.04](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/tree/v1.04) (2021-01-12) · [Full Changelog](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/compare/v1.03...v1.04)
 
 * Change `Keycloak.MIN_TOKEN_VALIDITY_SECONDS` from `30s` to `60s`. It seems that the skew of the clocks between the browser and the keycloak server can be significant in some scenarios. Increasing the minimum time decreases the chance that the skew could cause an expired token to be used by the client and rejected by the server. This does increase the number of validations and re-requests that can occur but the additional safety is considered an acceptable tradeoff.
