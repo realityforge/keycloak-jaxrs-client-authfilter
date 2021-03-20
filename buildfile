@@ -14,7 +14,7 @@ define 'keycloak-jaxrs-client-authfilter' do
 
   pom.add_apache_v2_license
   pom.add_github_project('realityforge/keycloak-jaxrs-client-authfilter')
-  pom.add_developer('realityforge', 'Peter Donald', 'peter@realityforge.org', ['Developer'])
+  pom.add_developer('realityforge', 'Peter Donald')
   pom.provided_dependencies.concat [:javaee_api, :javax_annotations]
 
   compile.with :javaee_api, :javax_annotations
