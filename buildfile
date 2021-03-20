@@ -1,6 +1,8 @@
 require 'buildr/git_auto_version'
 require 'buildr/gpg'
 
+Buildr::MavenCentral.define_publish_tasks(:profile_name => 'org.realityforge', :username => 'realityforge')
+
 desc 'Filter for accessing keycloak secured services'
 define 'keycloak-jaxrs-client-authfilter' do
   project.group = 'org.realityforge.keycloak.client.authfilter'
