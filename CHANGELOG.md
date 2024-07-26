@@ -2,6 +2,7 @@
 
 ### Unreleased
 
+* Update the `org.realityforge.javax.annotation` artifact to version `1.1.1`.
 * Upgrade the `au.com.stocksoftware.idea.codestyle` artifact to version `1.17`.
 
 ### [v1.04](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/tree/v1.04) (2021-01-12) · [Full Changelog](https://github.com/realityforge/keycloak-jaxrs-client-authfilter/compare/v1.03...v1.04)
